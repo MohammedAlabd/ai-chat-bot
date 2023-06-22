@@ -1,8 +1,8 @@
 import React from 'react';
-import { Message } from './Message.types';
+import { MessageType } from './Message.types';
 
 type Props = {
- message: Message;
+ message: MessageType;
 };
 
 const Message: React.FC<Props> = ({ message }) => {

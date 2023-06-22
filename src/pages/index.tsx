@@ -1,22 +1,30 @@
 import Image from 'next/image';
+import axios from 'axios';
 import { Inter } from 'next/font/google';
 import Message from '@/components/message/Message';
 import { FormEvent, useState } from 'react';
+import { MessageType } from '@/components/message/Message.types';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
- const [messages, setMessages] = useState([
-  { role: 'user', content: 'Who won the world series in 2020?' },
-  { role: 'assistant', content: 'The Los Angeles Dodgers won the World Series in 2020.' },
-  { role: 'user', content: 'Where was it played?' },
- ]);
+ const [messages, setMessages] = useState<MessageType[]>([]);
  const [inputValue, setInputValue] = useState<string>('');
 
- const handleSendMessage = (e: FormEvent<HTMLFormElement>) => {
+ const handleSendMessage = async (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  setMessages((prev) => [...prev, { role: 'user', content: inputValue }]);
-  setInputValue('');
+  const newMessages = [...messages, { role: 'user', content: inputValue }];
+  setMessages(newMessages);
+
+  try {
+   const res = await axios.post<{ message: string }>('/api/send-message', newMessages);
+   console.log(res);
+   setMessages([...newMessages, { role: 'system', content: res.data.message }]);
+   setInputValue('');
+  } catch (error) {
+   setMessages(newMessages.slice(0, -1));
+   console.error(error);
+  }
  };
 
  return (
