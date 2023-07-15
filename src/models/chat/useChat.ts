@@ -10,7 +10,6 @@ const useChat = () => {
   setMessages(newMessages);
   try {
    const res = await axios.post<{ message: string }>('/api/send-message', newMessages);
-   console.log(res);
    setMessages([...newMessages, { role: 'system', content: res.data.message }]);
   } catch (error) {
    setMessages(newMessages.slice(0, -1));

@@ -12,14 +12,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
    messages: req.body,
   });
 
-  console.log(chatCompletion.data.choices[0].message);
   if (chatCompletion.data.choices[0].message && chatCompletion.data.choices[0].message.content) {
    res.status(200).json({ message: chatCompletion.data.choices[0].message.content });
   } else {
    res.status(500).json(new Error('internal server error'));
   }
- }
- {
+ } else {
   res.status(404).json(new Error('Not Found'));
  }
 }
