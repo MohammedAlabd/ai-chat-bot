@@ -28,4 +28,5 @@ when the user chats with the ai all the old messages are preserved, so with each
 1. I would like to use something like react-query or useSWR to mange data fetching and caching and mutations and all of this jaz
 1. a nice sidebar to show the user chats and allow him to navigate through them
 1. more keyboard support like sending the message on `crtl/cmd + enter`
+1. the UI doesn't look good, so I could spend sometime making it better
 1. this is a very general AI chat, so I would like to spend time to understand what is the need and purpose of the ai-assistance more so I can develope more features to make it more specific for the use case
